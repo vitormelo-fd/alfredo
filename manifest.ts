@@ -1,15 +1,17 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
-import AnnouncementDatastore from "./datastores/announcements.ts";
-import DraftDatastore from "./datastores/drafts.ts";
 import { AnnouncementCustomType } from "./functions/post_summary/types.ts";
 import CreateAnnouncementWorkflow from "./workflows/create_announcement.ts";
+import PullRequestsDatastore from "./datastores/pull_requests.ts";
+import ScoutsDatastore from "./datastores/scouts.ts";
+import ScrumMastersDatastore from "./datastores/scrum_masters.ts";
+import VacationsDatastore from "./datastores/vacations.ts";
 
 export default Manifest({
   name: "alfredo",
-  description: "Send an announcement to one or more channels",
+  description: "Useful butler for all processes related to the team",
   icon: "assets/icon.png",
   outgoingDomains: [],
-  datastores: [DraftDatastore, AnnouncementDatastore],
+  datastores: [PullRequestsDatastore, ScoutsDatastore, ScrumMastersDatastore, VacationsDatastore],
   types: [AnnouncementCustomType],
   workflows: [
     CreateAnnouncementWorkflow,
