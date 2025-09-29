@@ -1,10 +1,10 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
-import { AnnouncementCustomType } from "./functions/post_summary/types.ts";
 import PullRequestsDatastore from "./datastores/pull_requests.ts";
 import ScoutsDatastore from "./datastores/scouts.ts";
 import ScrumMastersDatastore from "./datastores/scrum_masters.ts";
 import VacationsDatastore from "./datastores/vacations.ts";
 import ExclusionsDatastore from "./datastores/exclusions.ts";
+import { PullRequestCustomType } from "./functions/pull_requests/types.ts";
 
 export default Manifest({
   name: "alfredo",
@@ -18,7 +18,7 @@ export default Manifest({
     VacationsDatastore,
     ExclusionsDatastore,
   ],
-  types: [AnnouncementCustomType],
+  types: [PullRequestCustomType],
   workflows: [],
   botScopes: [
     "commands",
