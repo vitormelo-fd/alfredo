@@ -11,11 +11,11 @@ import { PrepareSendAnnouncementFunctionDefinition } from "../functions/send_ann
  * This workflow uses interactivity. Learn more at:
  * https://api.slack.com/automation/forms#add-interactivity
  */
-const CreateAnnouncementWorkflow = DefineWorkflow({
-  callback_id: "create_announcement",
-  title: "Create an announcement",
+const CallAlfredoWorkflow = DefineWorkflow({
+  callback_id: "call_alfredo",
+  title: "Call Alfredo bot to do something",
   description:
-    "Create and send an announcement to one or more channels in your workspace.",
+    "Alfredo, your helpful butler to manage your day to day team processes",
   input_parameters: {
     properties: {
       created_by: {
@@ -32,12 +32,12 @@ const CreateAnnouncementWorkflow = DefineWorkflow({
 // Step 1: Open a form to create an announcement using built-in function, OpenForm
 // For more on built-in functions
 // https://api.slack.com/automation/functions#built-in-functions
-const formStep = CreateAnnouncementWorkflow
+const formStep = CallAlfredoWorkflow
   .addStep(Schema.slack.functions.OpenForm, {
     title: "Create an announcement",
     description:
       "Create a draft announcement. You will have the opportunity to preview & edit it in channel before sending.\n\n_Want to create a richer announcement? Use <https://app.slack.com/block-kit-builder|Block Kit Builder> and paste the full payload into the message input below._",
-    interactivity: CreateAnnouncementWorkflow.inputs.interactivity,
+    interactivity: CallAlfredoWorkflow.inputs.interactivity,
     submit_label: "Preview",
     fields: {
       elements: [{
@@ -79,10 +79,10 @@ const formStep = CreateAnnouncementWorkflow
 // Step 2: Create a draft announcement
 // This step uses a custom function published by this app
 // https://api.slack.com/automation/functions/custom
-const draftStep = CreateAnnouncementWorkflow.addStep(
+const draftStep = CallAlfredoWorkflow.addStep(
   CreateDraftFunctionDefinition,
   {
-    created_by: CreateAnnouncementWorkflow.inputs.created_by,
+    created_by: CallAlfredoWorkflow.inputs.created_by,
     message: formStep.outputs.fields.message,
     channels: formStep.outputs.fields.channels,
     channel: formStep.outputs.fields.channel,
@@ -92,7 +92,7 @@ const draftStep = CreateAnnouncementWorkflow.addStep(
 );
 
 // Step 3: Send announcement(s)
-const sendStep = CreateAnnouncementWorkflow.addStep(
+const sendStep = CallAlfredoWorkflow.addStep(
   PrepareSendAnnouncementFunctionDefinition,
   {
     message: draftStep.outputs.message,
@@ -104,10 +104,10 @@ const sendStep = CreateAnnouncementWorkflow.addStep(
 );
 
 // Step 4: Post message summary of announcement
-CreateAnnouncementWorkflow.addStep(PostSummaryFunctionDefinition, {
+CallAlfredoWorkflow.addStep(PostSummaryFunctionDefinition, {
   announcements: sendStep.outputs.announcements,
   channel: formStep.outputs.fields.channel,
   message_ts: draftStep.outputs.message_ts,
 });
 
-export default CreateAnnouncementWorkflow;
+export default CallAlfredoWorkflow;
