@@ -1,6 +1,6 @@
 import type { Trigger } from "deno-slack-sdk/types.ts";
 import { TriggerContextData, TriggerTypes } from "deno-slack-api/mod.ts";
-import CallAlfredoWorkflow from "../workflows/call_alfredo.ts";
+import CallAlfredoWorkflow from "../workflows/call_alfredo_workflow.ts";
 
 /**
  * This is a definition file for a shortcut link trigger

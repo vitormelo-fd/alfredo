@@ -18,7 +18,7 @@ export default Manifest({
     VacationsDatastore,
     ExclusionsDatastore,
   ],
-  types: [PullRequestCustomType],
+  types: [],
   workflows: [],
   botScopes: [
     "commands",

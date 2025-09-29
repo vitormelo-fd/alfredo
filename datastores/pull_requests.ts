@@ -7,13 +7,10 @@ import { DefineDatastore, Schema } from "deno-slack-sdk/mod.ts";
  */
 export default DefineDatastore({
   name: "pull_requests",
-  primary_key: "conversation_id",
+  primary_key: "github_url",
   attributes: {
     conversation_id: {
       type: Schema.types.string,
-    },
-    user_id: {
-      type: Schema.slack.types.user_id,
     },
     created_at: {
       type: Schema.slack.types.timestamp,
@@ -33,7 +30,7 @@ export default DefineDatastore({
     author_id: {
       type: Schema.slack.types.user_id,
     },
-    url: {
+    github_url: {
       type: Schema.types.string,
     },
     team:{
